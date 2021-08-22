@@ -9,22 +9,36 @@ from .models import User, Post, Like, Follow
 
 def index(request):
     # get all posts
+    all_posts = get_all_posts()
+
+    context = {
+        "all_posts": all_posts,
+    }
+    return render(request, "network/index.html", context)
+
+
+def get_all_posts():
+    # get all posts
     all_posts = Post.objects.all().values()
     
     # convert to list, in order to then sort
     all_posts = list(all_posts)
     all_posts.sort(key=lambda post:post['created'], reverse=True)
 
-    # get poster's name for each post and add to post data
+    # get poster's name and likes for each post and add to post data
     for post in all_posts:
+        # get poster info
         poster_id = post['poster_id']
         poster = User.objects.get(pk=poster_id).username
         post['poster'] = poster
+        # get like info
+        post_id = post['id']
+        likes = Like.objects.filter(liked_post=post_id)
+        #### convert to list?
+        likes = likes.count()
+        post['likes'] = likes
 
-    context = {
-        "all_posts": all_posts,
-    }
-    return render(request, "network/index.html", context)
+    return all_posts
 
 
 def login_view(request):

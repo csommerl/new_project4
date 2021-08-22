@@ -61,13 +61,13 @@ Using Python, JavaScript, HTML, and CSS, complete the implementation of a social
     - cf. https://simpleisbetterthancomplex.com/tutorial/2016/07/27/how-to-return-json-encoded-response.html
 
 ## All Posts
-- [ ] The “All Posts” link in the navigation bar should take the user to a page where they can see all posts from all users,
+- [x] The “All Posts” link in the navigation bar should take the user to a page where they can see all posts from all users,
     [x] with the most recent posts first.
 - [x] Each post should include:
     - [x] the username of the poster,
     - [x] the post content itself,
     - [x] the date and time at which the post was made, and
-    - [ ] the number of “likes” the post has (this will be 0 for all posts until you implement the ability to “like” a post later).
+    - [x] the number of “likes” the post has (this will be 0 for all posts until you implement the ability to “like” a post later).
 - [ ] Mine:
     - [ ] Update automatically after submitting new post
     - [ ] update what to dowhen there are no posts
