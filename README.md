@@ -62,16 +62,17 @@ Using Python, JavaScript, HTML, and CSS, complete the implementation of a social
 
 ## All Posts
 - [ ] The “All Posts” link in the navigation bar should take the user to a page where they can see all posts from all users,
-    [ ] with the most recent posts first.
-- [ ] Each post should include:
-    - [ ] the username of the poster,
-    - [ ] the post content itself,
-    - [ ] the date and time at which the post was made, and
+    [x] with the most recent posts first.
+- [x] Each post should include:
+    - [x] the username of the poster,
+    - [x] the post content itself,
+    - [x] the date and time at which the post was made, and
     - [ ] the number of “likes” the post has (this will be 0 for all posts until you implement the ability to “like” a post later).
 - [ ] Mine:
     - [ ] Update automatically after submitting new post
     - [ ] update what to dowhen there are no posts
     - [ ] reduce redundancy with profile page posts display
+    - [ ] display when it was edited
 
 ## Profile Page
 - [ ] Clicking on a username should load that user’s profile page. This page should:
@@ -160,3 +161,7 @@ Using Python, JavaScript, HTML, and CSS, complete the implementation of a social
 - [ ] You’ll likely need to create one or more `models` in `network/models.py` and/or modify the existing `User` model to store the necessary data for your web application.
 - [ ] Django’s `Paginator` class may be helpful for implementing pagination on the back-end (in your Python code).
 - [ ] Bootstrap’s` Pagination` features may be helpful for displaying pages on the front-end (in your HTML).
+
+# Boostrap
+- https://getbootstrap.com/docs/4.0/utilities/spacing/
+- https://getbootstrap.com/docs/5.0/components/card/
