@@ -31,12 +31,18 @@ Finally, take a look at `network/models.py`. This is where you will define any m
 Using Python, JavaScript, HTML, and CSS, complete the implementation of a social network that allows users to make posts, follow other users, and “like” posts. You must fulfill the following requirements:
 
 ## Create Models
-- [ ] Create models for:
-    - [ ] Post
-    - [ ] Like
-    - [ ] Follower
-- [ ] Add string representations for each
-- [ ] Update admin interface for each
+- [x] Create models for:
+    - [x] Post
+    - [x] Like
+        - [x] different `related_name` needed for `liked_post` and `liker`?
+        - maybe should have default for like_status set to false?
+        - like status is being used so that no likes are deleted, and so the database keeps a history of all likes
+        - [x] how to get timestamp of both original like and unlike?
+    - [x] Follower
+        - maybe different related_name needed?
+- Mine:
+    - [x] Add string representations for each
+    - [x] Update admin interface for each
 
 ## New Post
 - [ ] Users who are signed in should be able to write a new text-based post by filling in text into a text area and then clicking a button to submit the post.
