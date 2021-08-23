@@ -1,4 +1,9 @@
 {% extends "network/layout.html" %}
+{% load static %}
+
+{% block script %}
+    <script src="{% static 'network/network.js' %}"></script>
+{% endblock %}
 
 {% block body %}
     <div id="all-posts">
@@ -10,10 +15,8 @@
                     <p class="card-text small">{{post.created}}</p>
                 </div>
                 <p class="card-footer">
-                    <button type="button" class="btn btn-primary">
-                        {{post.like_button}}
-                        <span class="badge bg-secondary">{{post.likes_count}}</span>
-                    </button>
+                    <button type="button" class="btn btn-primary" id="button_{{post.id}}">{{post.like_button}}</button>
+                    <span class="badge badge-primary" id="badge{{post.id}}">{{post.likes_count}}</span>
                 </p>
             </div>
         {% endfor %}
