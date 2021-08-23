@@ -3,13 +3,18 @@
 {% block body %}
     <div id="all-posts">
         {% for post in all_posts %}
-            <div class="card text-dark bg-light m-3 mx-auto" style="width: 30rem;">
+            <div class="card text-dark bg-light m-3 mx-auto" style="width: 50rem;">
                 <div class="card-body">
                     <h5 class="card-title">{{post.poster}}</h5>
                     <p class="card-text">{{post.content}}</p>
-                    <p class="card-text">{{post.likes}} Likes</p>
                     <p class="card-text small">{{post.created}}</p>
                 </div>
+                <p class="card-footer">
+                    <button type="button" class="btn btn-primary">
+                        {{post.like_button}}
+                        <span class="badge bg-secondary">{{post.likes_count}}</span>
+                    </button>
+                </p>
             </div>
         {% endfor %}
     </div>

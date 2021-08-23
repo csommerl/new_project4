@@ -73,6 +73,7 @@ Using Python, JavaScript, HTML, and CSS, complete the implementation of a social
     - [ ] update what to dowhen there are no posts
     - [ ] reduce redundancy with profile page posts display
     - [ ] display when it was edited
+    - [x] update formatting of likes
 
 ## Profile Page
 - [ ] Clicking on a username should load that user’s profile page. This page should:
@@ -165,3 +166,4 @@ Using Python, JavaScript, HTML, and CSS, complete the implementation of a social
 # Boostrap
 - https://getbootstrap.com/docs/4.0/utilities/spacing/
 - https://getbootstrap.com/docs/5.0/components/card/
+- https://getbootstrap.com/docs/5.0/utilities/text/

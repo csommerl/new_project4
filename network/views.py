@@ -9,7 +9,9 @@ from .models import User, Post, Like, Follow
 
 def index(request):
     # get all posts
-    all_posts = get_all_posts()
+    all_posts = Post.objects.all().values()
+    # get post data
+    all_posts = get_post_data(all_posts, request)
 
     context = {
         "all_posts": all_posts,
@@ -17,28 +19,35 @@ def index(request):
     return render(request, "network/index.html", context)
 
 
-def get_all_posts():
-    # get all posts
-    all_posts = Post.objects.all().values()
-    
+def get_post_data(posts, request):
     # convert to list, in order to then sort
-    all_posts = list(all_posts)
-    all_posts.sort(key=lambda post:post['created'], reverse=True)
+    posts = list(posts)
+    posts.sort(key=lambda post:post['created'], reverse=True)
 
     # get poster's name and likes for each post and add to post data
-    for post in all_posts:
+    for post in posts:
         # get poster info
         poster_id = post['poster_id']
         poster = User.objects.get(pk=poster_id).username
         post['poster'] = poster
-        # get like info
+        
+        # get number of likes info
         post_id = post['id']
         likes = Like.objects.filter(liked_post=post_id)
         #### convert to list?
-        likes = likes.count()
-        post['likes'] = likes
+        likes_count = likes.count()
+        post['likes_count'] = likes_count
 
-    return all_posts
+        # get whether user likes the post
+        user_id = request.user.id
+        likes_by_user = list(likes.filter(liker=user_id, like_status=True))
+        if likes_by_user == []:
+            like_button = "Like"
+        else:
+            like_button = "Unlike"
+        post['like_button'] = like_button
+
+    return posts
 
 
 def login_view(request):
