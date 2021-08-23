@@ -8,10 +8,11 @@ from .models import User, Post, Like, Follow
 
 
 def index(request):
+    user_id = request.user.id
     # get all posts
     all_posts = Post.objects.all().values()
     # get post data
-    all_posts = get_post_data(all_posts, request)
+    all_posts = get_post_data(all_posts, user_id)
 
     context = {
         "all_posts": all_posts,
@@ -19,7 +20,7 @@ def index(request):
     return render(request, "network/index.html", context)
 
 
-def get_post_data(posts, request):
+def get_post_data(posts, user_id):
     # convert to list, in order to then sort
     posts = list(posts)
     posts.sort(key=lambda post:post['created'], reverse=True)
@@ -39,7 +40,6 @@ def get_post_data(posts, request):
         post['likes_count'] = likes_count
 
         # get whether user likes the post
-        user_id = request.user.id
         likes_by_user = list(likes.filter(liker=user_id, like_status=True))
         if likes_by_user == []:
             like_button = "Like"

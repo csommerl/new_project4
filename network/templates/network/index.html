@@ -15,8 +15,8 @@
                     <p class="card-text small">{{post.created}}</p>
                 </div>
                 <p class="card-footer">
-                    <button type="button" class="btn btn-primary" id="button_{{post.id}}">{{post.like_button}}</button>
-                    <span class="badge badge-primary" id="badge{{post.id}}">{{post.likes_count}}</span>
+                    <button type="submit" class="btn btn-primary like-button" id="like-button-{{post.id}}">{{post.like_button}}</button>
+                    <span class="badge badge-primary like-badge" id="like-badge-{{post.id}}">{{post.likes_count}}</span>
                 </p>
             </div>
         {% endfor %}
