@@ -5,9 +5,10 @@ from django.http.response import JsonResponse
 from django.shortcuts import render
 from django.urls import reverse
 
-from django.views.decorators.csrf import csrf_exempt, csrf_protect
-
+# My additional modules + models
 from .models import User, Post, Like, Follow
+from django.views.decorators.csrf import csrf_exempt, csrf_protect
+from django.core.paginator import Paginator
 
 
 def index(request):
@@ -16,9 +17,14 @@ def index(request):
     all_posts = Post.objects.all().values()
     # get post data
     all_posts = get_post_data(all_posts, user_id)
-
+    
+    # pagination
+    paginator = Paginator(all_posts, 10) ##### in documentation example, Paginator takes a simple `objects.all()`
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    
     context = {
-        "all_posts": all_posts,
+        "page_obj": page_obj
     }
     return render(request, "network/index.html", context)
 

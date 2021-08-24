@@ -13,3 +13,7 @@ hegel
 freddie
 freddie@bearmail.com
 candy
+
+bumbly
+bumbly@bearmail.com
+bumbum

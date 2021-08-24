@@ -117,10 +117,12 @@ Using Python, JavaScript, HTML, and CSS, complete the implementation of a social
         - [ ] make sure to fix for when no users are followed
 
 ## Pagination
-- [ ] On any page that displays posts, posts should only be displayed 10 on a page.
-    - [ ] If there are more than ten posts, a “Next” button should appear to take the user to the next page of posts (which should be older than the current page of posts).
-    - [ ] If not on the first page, a “Previous” button should appear to take the user to the previous page of posts as well.
-    - [ ] See the Hints section for some suggestions on how to implement this.
+- [x] On any page that displays posts, posts should only be displayed 10 on a page.
+    - [x] If there are more than ten posts, a “Next” button should appear to take the user to the next page of posts (which should be older than the current page of posts).
+    - [x] If not on the first page, a “Previous” button should appear to take the user to the previous page of posts as well.
+    - [x] See the Hints section for some suggestions on how to implement this.
+- [ ] Mine:
+    - [ ] style it better, with Bootstrap / Javascript
 
 ## Edit Post
 - [ ] Users should be able to click an “Edit” button or link on any of their own posts to edit that post.
@@ -167,8 +169,8 @@ Using Python, JavaScript, HTML, and CSS, complete the implementation of a social
 # Hints
 - [ ] For examples of JavaScript `fetch` calls, you may find some of the routes in Project 3 useful to reference.
 - [ ] You’ll likely need to create one or more `models` in `network/models.py` and/or modify the existing `User` model to store the necessary data for your web application.
-- [ ] Django’s `Paginator` class may be helpful for implementing pagination on the back-end (in your Python code).
-- [ ] Bootstrap’s` Pagination` features may be helpful for displaying pages on the front-end (in your HTML).
+- [ ] Django’s [`Paginator`](https://docs.djangoproject.com/en/3.2/topics/pagination/) class may be helpful for implementing pagination on the back-end (in your Python code).
+- [ ] Bootstrap’s [`Pagination`](https://getbootstrap.com/docs/4.0/components/pagination/) features may be helpful for displaying pages on the front-end (in your HTML).
 
 # Boostrap
 - https://getbootstrap.com/docs/4.0/utilities/spacing/
