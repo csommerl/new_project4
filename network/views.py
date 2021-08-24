@@ -1,8 +1,11 @@
 from django.contrib.auth import authenticate, login, logout
 from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseRedirect
+from django.http.response import JsonResponse
 from django.shortcuts import render
 from django.urls import reverse
+
+from django.views.decorators.csrf import csrf_exempt, csrf_protect
 
 from .models import User, Post, Like, Follow
 
@@ -35,8 +38,7 @@ def get_post_data(posts, user_id):
         # get number of likes info
         post_id = post['id']
         likes = Like.objects.filter(liked_post=post_id)
-        #### convert to list?
-        likes_count = likes.count()
+        likes_count = likes.count() #### no need convert to list to get count?
         post['likes_count'] = likes_count
 
         # get whether user likes the post
@@ -48,6 +50,36 @@ def get_post_data(posts, user_id):
         post['like_button'] = like_button
 
     return posts
+
+
+@csrf_exempt
+def like(request, postID):
+    liked_post = int(postID)
+    liker = request.user.pk
+    if request.method == "POST":
+        like = Like(liked_post=Post.objects.get(pk=liked_post), liker=User.objects.get(pk=liker))
+        like.save()
+        return HttpResponse(status=204)
+    else:
+        return JsonResponse({
+            "error": "POST request required."
+        }, status=400)
+
+
+@csrf_exempt
+def unlike(request, postID):
+    unliked_post = int(postID)
+    liker = request.user.pk
+    if request.method == "POST":
+        # need like_status=True to get only the most recent one
+        like = Like.objects.get(liked_post=unliked_post, liker=liker, like_status=True)
+        like.like_status = False
+        like.save()
+        return HttpResponse(status=204)
+    else:
+        return JsonResponse({
+            "error": "POST request required."
+        }, status=400)
 
 
 def login_view(request):

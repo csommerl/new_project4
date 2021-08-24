@@ -14,7 +14,7 @@ class Post(models.Model):
     updated = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f"{self.poster}'s post on {self.created.date()} at {self.created.time()}"
+        return f"Post {self.pk} ({self.poster}'s post on {self.created.date()} at {self.created.time()})"
 
 
 class Like(models.Model):
@@ -22,10 +22,10 @@ class Like(models.Model):
     liker = models.ForeignKey(User, on_delete=models.CASCADE, related_name="liked")
     like_status = models.BooleanField(default=True)
     created = models.DateTimeField(auto_now_add=True)
-    updated = models.DateTimeField(auto_now=True)
+    updated = models.DateTimeField(auto_now=True) # if different from created, this means that it is deleted
 
     def __str__(self):
-        return f"At {self.created.time()} on {self.created.date()}, {self.liker} liked {self.liked_post}"
+        return f"Like {self.pk} (At {self.created.time()} on {self.created.date()}, {self.liker} liked {self.liked_post})"
 
 
 class Follow(models.Model):
@@ -36,4 +36,4 @@ class Follow(models.Model):
     updated = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f"{self.follower} followed {self.followed} on {self.created.date()} at {self.created.time()}"
+        return f"Follow {self.pk} ({self.follower} followed {self.followed} on {self.created.date()} at {self.created.time()})"

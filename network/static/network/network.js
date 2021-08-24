@@ -7,7 +7,9 @@ document.addEventListener('DOMContentLoaded', () => {
             likeButtonClick(likeButton);
         });
     });
+
 });
+
 
 function likeButtonClick(likeButton) {
     // gets the id of the post that the button accompanies, based on the id assigned
@@ -16,14 +18,28 @@ function likeButtonClick(likeButton) {
     // Gets like badge
     const likeBadge = document.querySelector(`#like-badge-${postID}`);
     
-    // update like button text and badge display number
+    // what to do based on current status
     if (likeButton.textContent === 'Like') {
+        
+        // update like button text and badge display number
         likeButton.textContent = 'Unlike';
-        likeBadge.textContent = parseInt(likeBadge.textContent) + 1
-        // add put method with AJAX
+        likeBadge.textContent = parseInt(likeBadge.textContent) + 1;
+        
+        // update database
+        fetch(`/like/${postID}`, {
+            method: 'POST'
+        });
+
+        // display error message?
+        
     } else {
+        
         likeButton.textContent = 'Like';
-        likeBadge.textContent = parseInt(likeBadge.textContent) - 1
-        // add put method with AJAX
+        likeBadge.textContent = parseInt(likeBadge.textContent) - 1;
+
+        fetch(`/unlike/${postID}`, {
+            method: 'POST'
+        });
+        // display error message?
     };
 }

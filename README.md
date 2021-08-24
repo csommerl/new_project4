@@ -130,13 +130,20 @@ Using Python, JavaScript, HTML, and CSS, complete the implementation of a social
 - [ ] For security, ensure that your application is designed such that it is not possible for a user, via any route, to edit another user’s posts.
 
 ## “Like” and “Unlike”
-- [ ] Users should be able to click a button or link on any post to toggle whether or not they “like” that post.
-- [ ] Using JavaScript, you should asynchronously let the server know to update the like count (as via a call to `fetch`) and then update the post’s like count displayed on the page, without requiring a reload of the entire page.
+- [x] Users should be able to click a button or link on any post to toggle whether or not they “like” that post.
+    - [x] unliking not working sometimes, e.g., after refreshing
+        - maybe try other users
+        - use `POST` method?
+        - problem was duplicate likes, it couldn't tell which to change
+- [x] Using JavaScript, you should asynchronously let the server know to update the like count (as via a call to `fetch`) and then update the post’s like count displayed on the page, without requiring a reload of the entire page.
 - [ ] Mine:
-    - [ ] Add to all posts: the number of “likes” the post has (this will be 0 for all posts until you implement the ability to “like” a post later).
-    - [ ] Fix like model:
-        - [ ] what to do when unliking: boolean or delete entry?
-        - [ ] how to ensure that there can be only one lilke instance for a given user/post?
+    - [x] Add to all posts: the number of “likes” the post has (this will be 0 for all posts until you implement the ability to “like” a post later).
+    - [x] Fix like model:
+        - [x] what to do when unliking: boolean or delete entry?
+        - [x] how to ensure that there can be only one lilke instance for a given user/post?
+    - [ ] **prevent users who are not logged on from clicking "Like"**
+    - [x] unliking not working sometimes
+    - [ ] remove `csrf exempt`?
 
 ## My Possible Features
 - [ ] Use React?
