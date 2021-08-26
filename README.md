@@ -45,20 +45,21 @@ Using Python, JavaScript, HTML, and CSS, complete the implementation of a social
     - [x] Update admin interface for each
 
 ## New Post
-- [ ] Users who are signed in should be able to write a new text-based post by filling in text into a text area and then clicking a button to submit the post.
-    - [ ] The screenshot at the top of this specification shows the “New Post” box at the top of the “All Posts” page. You may choose to do this as well, or you may make the “New Post” feature a separate page.
-- [ ] Mine:
-    - [ ] create limit of character input
-    - [ ] redirect after posting
-    - [ ] tidy up design of form
-    - [ ] add csrf functionality
+- [x] Users who are signed in should be able to write a new text-based post by filling in text into a text area and then clicking a button to submit the post.
+    - [x] The screenshot at the top of this specification shows the “New Post” box at the top of the “All Posts” page. You may choose to do this as well, or you may make the “New Post” feature a separate page.
+- [x] Mine:
+    - [x] create limit of character input
+    - [x] redirect after posting
+    - [x] tidy up design of form
+    - [x] add csrf functionality
         - https://docs.djangoproject.com/en/3.2/ref/csrf/
         - https://github.com/ghrust/cs50w-project4-network/
         - https://github.com/EgidioHPaixao/web50-projects-2020-x-network/blob/master/network/static/network/index.js
-    - [ ] make it so that the form appears only when logged in
-    - [ ] add messages, with successful post and no content post
-    - [ ] Use django form instead, especially for csrf?
+    - [x] make it so that the form appears only when logged in
+    - [x] add messages, with successful post and no content post
+    - [x] Use django form instead, especially for csrf?
     - cf. https://simpleisbetterthancomplex.com/tutorial/2016/07/27/how-to-return-json-encoded-response.html
+    - https://docs.djangoproject.com/en/3.2/topics/forms/#form-rendering-options
 
 ## All Posts
 - [x] The “All Posts” link in the navigation bar should take the user to a page where they can see all posts from all users,

@@ -12,5 +12,6 @@ urlpatterns = [
 
     # API Routes
     path("like/<str:postID>", views.like, name="like"),
-    path("unlike/<str:postID>", views.unlike, name="unlike")
+    path("unlike/<str:postID>", views.unlike, name="unlike"),
+    path("new-post-submit", views.new_post_submit, name="new-post-submit")
 ]

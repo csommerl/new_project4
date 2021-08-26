@@ -9,9 +9,14 @@ from django.urls import reverse
 from .models import User, Post, Like, Follow
 from django.views.decorators.csrf import csrf_exempt, csrf_protect
 from django.core.paginator import Paginator
+from django.contrib.auth.decorators import login_required
+from .forms import NewPostForm
 
 
 def index(request):
+    form = NewPostForm()
+
+    # get user id in order to get like info
     user_id = request.user.id
     # get all posts
     all_posts = Post.objects.all().values()
@@ -24,8 +29,10 @@ def index(request):
     page_obj = paginator.get_page(page_number)
     
     context = {
-        "page_obj": page_obj
+        "page_obj": page_obj,
+        "form": form
     }
+
     return render(request, "network/index.html", context)
 
 
@@ -86,6 +93,19 @@ def unlike(request, postID):
         return JsonResponse({
             "error": "POST request required."
         }, status=400)
+
+
+def new_post_submit(request):
+    if request.method == "POST":
+        form = NewPostForm(request.POST)
+        if form.is_valid():
+            cd = form.cleaned_data
+            post = Post(
+                poster = request.user,
+                content = cd["content"]
+            )
+            post.save()
+        return HttpResponseRedirect(reverse("index"))
 
 
 def login_view(request):
