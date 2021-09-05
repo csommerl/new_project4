@@ -50,7 +50,7 @@ def get_post_data(posts, user_id):
         
         # get number of likes info
         post_id = post['id']
-        likes = Like.objects.filter(liked_post=post_id)
+        likes = Like.objects.filter(liked_post=post_id, like_status=True)
         likes_count = likes.count() #### no need convert to list to get count?
         post['likes_count'] = likes_count
 
@@ -106,6 +106,53 @@ def new_post_submit(request):
             )
             post.save()
         return HttpResponseRedirect(reverse("index"))
+
+
+def profile(request, profilename):
+    
+    # get user id in order to get like info
+    user_id = request.user.id
+
+    # try if user with profilename exists
+    try:
+        # get profile posts
+        profile_id = User.objects.get(username=profilename).pk
+        profile_posts = Post.objects.filter(poster=profile_id).values()
+        profile_posts = get_post_data(profile_posts, user_id)
+
+        # pagination
+        paginator = Paginator(profile_posts, 10)
+        page_number = request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
+
+        # profile info
+        followers = Follow.objects.filter(followed=profile_id, follow_status=True).count()
+        follows = Follow.objects.filter(follower=profile_id, follow_status=True).count()
+        
+        # set follow button; maybe do it with if statement?
+        try:
+            Follow.objects.get(followed=profile_id, follower=user_id, follow_status=True)
+            follow_button = "Unfollow"
+        except:
+            follow_button = "Follow"
+        
+        context = {
+            "profilename": profilename,
+            "page_obj": page_obj,
+            "followers": followers,
+            "follows": follows,
+            "follow_button": follow_button
+        }
+
+    except:
+        message = "No user with that profile name exists."
+
+        context = {
+            "profilename": profilename,
+            "message": message
+        }
+
+    return render(request, "network/profile.html", context)
 
 
 def login_view(request):

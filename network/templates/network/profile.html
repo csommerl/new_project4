@@ -1,0 +1,73 @@
+{% extends "network/layout.html" %}
+{% load static %}
+
+{% block script %}
+    <script src="{% static 'network/network.js' %}"></script>
+{% endblock %}
+
+{% block body %}
+
+    {% if message %}
+        {{message}}
+    {% else %}
+
+        <div id="profile-info">
+            <div class="card text-dark m-3 mx-auto" style="width: 50rem;">
+                <div class="card-body">
+                    <h1 class="card-title"><a href="{% url 'profile' profilename %}">{{profilename}}</a></h5>
+                    <p class="card-text">
+                        <strong>{{follows}}</strong> Following
+                        <strong>{{followers}}</strong> Followers
+                    </p>
+
+                    {% if user.username != profilename %}
+                        <p class="card-text">
+                            <button type="submit" class="btn btn-primary follow-button" id="follow-button-{{profilename}}">{{follow_button}}</button>
+                        </p>
+                    {% endif %}
+
+                </div>
+            </div>
+        </div>
+        
+        <div id="profile-posts">
+            <h2 class="mx-auto mt-5" style="width: 49rem;">
+                {{profilename}}'s posts
+            </h2>
+            {% for post in page_obj %}
+                <div class="card text-dark bg-light m-3 mx-auto" style="width: 50rem;">
+                    <div class="card-body">
+                        <h3 class="card-title"><a href="{% url 'profile' post.poster %}">{{post.poster}}</a></h5>
+                        <p class="card-text">{{post.content}}</p>
+                        <p class="card-text small">{{post.created}}</p>
+                    </div>
+                    <p class="card-footer">
+                        <button type="submit" class="btn btn-primary like-button" id="like-button-{{post.id}}">{{post.like_button}}</button>
+                        <span class="badge badge-primary like-badge" id="like-badge-{{post.id}}">{{post.likes_count}}</span>
+                    </p>
+                </div>
+            {% endfor %}
+        </div>
+
+        <nav aria-label="Page navigation for posts" class="m-3 mx-auto" style="width: 50rem;">
+            <ul class="pagination">
+                {% if page_obj.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ page_obj.previous_page_number }}">
+                            Previous
+                        </a>
+                    </li>
+                {% endif %}
+
+                {% if page_obj.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ page_obj.next_page_number }}">
+                            Next
+                        </a>
+                    </li>    
+                {% endif %}
+            </ul>
+        </nav>
+    {% endif %}
+
+{% endblock %}

@@ -77,13 +77,13 @@ Using Python, JavaScript, HTML, and CSS, complete the implementation of a social
     - [x] update formatting of likes
 
 ## Profile Page
-- [ ] Clicking on a username should load that user’s profile page. This page should:
-    - [ ] Add link to each username in js loadpost function
-    - [ ] Display the number of followers the user has, as well as the number of people that the user follows.
-    - [ ] Display all of the posts for that user, in reverse chronological order.
-        - [ ] display likes
+- [x] Clicking on a username should load that user’s profile page. This page should:
+    - [x] Add link to each username in js loadpost function
+    - [x] Display the number of followers the user has, as well as the number of people that the user follows.
+    - [x] Display all of the posts for that user, in reverse chronological order.
+        - [x] display likes
     - [ ] For any other user who is signed in
-        - [ ] this page should also display a “Follow” or “Unfollow” button
+        - [x] this page should also display a “Follow” or “Unfollow” button
         - [ ] that will let the current user toggle whether or not they are following this user’s posts.
             1. ~~NO: use fetch without boolean
                 - unclear how to use fetch to delete an entry
@@ -99,11 +99,12 @@ Using Python, JavaScript, HTML, and CSS, complete the implementation of a social
         - [ ] should refresh after clicking:
             - NOT USED: javascript event listener
             - USED: alternatively could use a redirect in python view
-        - [ ] Note that this only applies to any “other” user: a user should not be able to follow themselves.
+        - [x] Note that this only applies to any “other” user: a user should not be able to follow themselves.
 - [ ] Mine:
     - [ ] Reduce redundancy with all posts
     - [ ] Change browser bar title
-    - [ ] add try except for non-existent users
+    - [x] add try except for non-existent users
+        - [ ] add styling for when there is no profile page
     - [ ] update what to dowhen there are no posts
     - [ ] add styling for follow data
 
