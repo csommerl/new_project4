@@ -82,9 +82,9 @@ Using Python, JavaScript, HTML, and CSS, complete the implementation of a social
     - [x] Display the number of followers the user has, as well as the number of people that the user follows.
     - [x] Display all of the posts for that user, in reverse chronological order.
         - [x] display likes
-    - [ ] For any other user who is signed in
+    - [x] For any other user who is signed in
         - [x] this page should also display a “Follow” or “Unfollow” button
-        - [ ] that will let the current user toggle whether or not they are following this user’s posts.
+        - [x] that will let the current user toggle whether or not they are following this user’s posts.
             1. ~~NO: use fetch without boolean
                 - unclear how to use fetch to delete an entry
                 - if deleting/creating database instance of Follow, then two different fetch requests need to be used:
