@@ -66,11 +66,40 @@ def get_post_data(posts, user_id):
 
 
 @csrf_exempt
-def like(request, postID):
-    liked_post = int(postID)
-    liker = request.user.pk
+def follow(request, profilename):
+    followed = User.objects.get(username=profilename)
+    follower = User.objects.get(pk=request.user.pk)
     if request.method == "POST":
-        like = Like(liked_post=Post.objects.get(pk=liked_post), liker=User.objects.get(pk=liker))
+        follow = Follow(followed=followed, follower=follower)
+        follow.save()
+        return HttpResponse(status=204)
+    else:
+        return JsonResponse({
+            "error": "POST request required."
+        }, status=400)
+
+
+@csrf_exempt
+def unfollow(request, profilename):
+    followed = User.objects.get(username=profilename)
+    follower = User.objects.get(pk=request.user.pk)
+    if request.method == "POST":
+        follow = Follow.objects.get(followed=followed, follower=follower, follow_status=True)
+        follow.follow_status = False
+        follow.save()
+        return HttpResponse(status=204)
+    else:
+        return JsonResponse({
+            "error": "POST request required."
+        }, status=400)
+
+
+@csrf_exempt
+def like(request, postID):
+    liked_post = Post.objects.get(pk=int(postID))
+    liker = User.objects.get(pk=request.user.pk)
+    if request.method == "POST":
+        like = Like(liked_post=liked_post, liker=liker)
         like.save()
         return HttpResponse(status=204)
     else:

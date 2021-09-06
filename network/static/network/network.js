@@ -8,7 +8,49 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // functionality for follow button
+    const followButton = document.querySelector('.follow-button');
+    followButton.addEventListener('click', () => {
+        followButtonClick(followButton);
+    });
+
 });
+
+
+function followButtonClick(followButton) {
+    // gets id of profile to follow
+    const profilename = followButton.id.slice(14,);
+    const followerCount = document.querySelector(`#${profilename}-follower-count`)
+
+    // what to do based on current status
+    if (followButton.textContent === 'Follow') {
+        
+        // update button text
+        followButton.textContent = 'Unfollow';
+        followerCount.textContent = parseInt(followerCount.textContent) + 1;
+
+        // update database
+        fetch(`/follow/${profilename}`, {
+            method: 'POST'
+        });
+
+        //// display error message?
+
+    } else {
+
+        // update button text
+        followButton.textContent = 'Follow';
+        followerCount.textContent = parseInt(followerCount.textContent) - 1;
+
+        // update database
+        fetch(`/unfollow/${profilename}`, {
+            method: 'POST'
+        });
+
+        //// display error message?
+
+    };
+}
 
 
 function likeButtonClick(likeButton) {
@@ -30,7 +72,7 @@ function likeButtonClick(likeButton) {
             method: 'POST'
         });
 
-        // display error message?
+        //// display error message?
         
     } else {
         
@@ -40,6 +82,8 @@ function likeButtonClick(likeButton) {
         fetch(`/unlike/${postID}`, {
             method: 'POST'
         });
-        // display error message?
+        
+        //// display error message?
+
     };
 }

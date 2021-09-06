@@ -16,8 +16,8 @@
                 <div class="card-body">
                     <h1 class="card-title"><a href="{% url 'profile' profilename %}">{{profilename}}</a></h5>
                     <p class="card-text">
-                        <strong>{{follows}}</strong> Following
-                        <strong>{{followers}}</strong> Followers
+                        <span id="{{profilename}}-follows-count" style="font-weight:bold">{{follows}}</span> Following
+                        <span id="{{profilename}}-follower-count" style="font-weight:bold">{{followers}}</span> Followers
                     </p>
 
                     {% if user.username != profilename %}
