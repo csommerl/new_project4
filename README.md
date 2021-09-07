@@ -109,14 +109,17 @@ Using Python, JavaScript, HTML, and CSS, complete the implementation of a social
     - [ ] add styling for follow data
 
 ## Following
-- [ ] The “Following” link in the navigation bar should take the user to a page where they see all posts made by users that the current user follows.
-- [ ] This page should behave just as the “All Posts” page does, just with a more limited set of posts.
-- [ ] This page should only be available to users who are signed in.
+- [x] The “Following” link in the navigation bar should take the user to a page where they see all posts made by users that the current user follows.
+- [x] This page should behave just as the “All Posts” page does, just with a more limited set of posts.
+- [x] This page should only be available to users who are signed in.
 - [ ] Mine:
     - [ ] Fix follow model:
-        - [ ] what to do when unfollowing: boolean or delete entry?
-        - [ ] how to ensure that there can be only one follow instance for a given follower/followed?
-        - [ ] make sure to fix for when no users are followed
+        - [x] what to do when unfollowing: boolean or delete entry?
+        - [x] how to ensure that there can be only one follow instance for a given follower/followed?
+    - [ ] make sure to fix for when no users are followed
+    - [ ] Add links in profile page for "Following" and "Followers"
+    - [ ] add following # in following page
+    - [ ] add profile info display to top of following page
 
 ## Pagination
 - [x] On any page that displays posts, posts should only be displayed 10 on a page.
@@ -148,6 +151,7 @@ Using Python, JavaScript, HTML, and CSS, complete the implementation of a social
     - [ ] **prevent users who are not logged on from clicking "Like"**
     - [x] unliking not working sometimes
     - [ ] remove `csrf exempt`?
+    - [ ] no like button if not logged in
 
 ## My Possible Features
 - [ ] Use React?

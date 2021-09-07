@@ -18,8 +18,8 @@ def index(request):
 
     # get user id in order to get like info
     user_id = request.user.id
-    # get all posts
-    all_posts = Post.objects.all().values()
+    # get all posts, make list out of QuerySet
+    all_posts = list(Post.objects.all().values())
     # get post data
     all_posts = get_post_data(all_posts, user_id)
     
@@ -37,8 +37,6 @@ def index(request):
 
 
 def get_post_data(posts, user_id):
-    # convert to list, in order to then sort
-    posts = list(posts)
     posts.sort(key=lambda post:post['created'], reverse=True)
 
     # get poster's name and likes for each post and add to post data
@@ -146,7 +144,7 @@ def profile(request, profilename):
     try:
         # get profile posts
         profile_id = User.objects.get(username=profilename).pk
-        profile_posts = Post.objects.filter(poster=profile_id).values()
+        profile_posts = list(Post.objects.filter(poster=profile_id).values())
         profile_posts = get_post_data(profile_posts, user_id)
 
         # pagination
@@ -182,6 +180,47 @@ def profile(request, profilename):
         }
 
     return render(request, "network/profile.html", context)
+
+
+@login_required
+def following(request):
+    user_id = request.user.id
+    
+    # generates list of all active follows
+    follows = list(Follow.objects.filter(follower=user_id, follow_status=True).values())
+
+    # if the user has active follows
+    if follows != []:
+        
+        # generate list of which users are followed
+        followed_users = []
+        for follow in follows:
+            followed_users.append(follow["followed_id"])
+
+        # get a list of posts from followed users
+        followed_posts = []
+        for user in followed_users:
+            followed_posts += list(Post.objects.filter(poster=user).values())
+        # get data for posts
+        followed_posts = get_post_data(followed_posts, user_id)
+
+        # pagination
+        paginator = Paginator(followed_posts, 10)
+        page_number = request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
+
+        context = {
+            "page_obj": page_obj
+        }
+
+    else:
+        message = "You don't yet follow anyone."
+
+        context = {
+            "message": message
+        }
+    
+    return render(request, "network/following.html", context)
 
 
 def login_view(request):

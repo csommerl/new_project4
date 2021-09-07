@@ -10,6 +10,7 @@ urlpatterns = [
     path("logout", views.logout_view, name="logout"),
     path("register", views.register, name="register"),
     path("profile/<str:profilename>", views.profile, name="profile"),
+    path("following", views.following, name="following"),
 
     # API Routes
     path("like/<str:postID>", views.like, name="like"),
