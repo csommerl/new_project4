@@ -130,11 +130,17 @@ Using Python, JavaScript, HTML, and CSS, complete the implementation of a social
     - [x] style it better, with Bootstrap / Javascript
 
 ## Edit Post
-- [ ] Users should be able to click an “Edit” button or link on any of their own posts to edit that post.
-    - [ ] When a user clicks “Edit” for one of their own posts, the content of their post should be replaced with a textarea where the user can edit the content of their post.
-- [ ] The user should then be able to “Save” the edited post.
-    - [ ] Using JavaScript, you should be able to achieve this without requiring a reload of the entire page.
-- [ ] For security, ensure that your application is designed such that it is not possible for a user, via any route, to edit another user’s posts.
+- [x] Users should be able to click an “Edit” button or link on any of their own posts to edit that post.
+    - [x] When a user clicks “Edit” for one of their own posts, the content of their post should be replaced with a textarea where the user can edit the content of their post.
+- [x] The user should then be able to “Save” the edited post.
+    - [x] Using JavaScript, you should be able to achieve this without requiring a reload of the entire page.
+- [x] For security, ensure that your application is designed such that it is not possible for a user, via any route, to edit another user’s posts.
+    - [x] do this by checking logged in user in `views.py`
+- [ ] Mine
+    - [x] Add cancel edit button --> no need to do, since clicking on a submit button with no content reverses everything.
+    - [x] after cancel, display edit button
+    - [ ] figure out why extra whitespace is added after clikcing save, then edit again
+    - [ ] create history of edits?
 
 ## “Like” and “Unlike”
 - [x] Users should be able to click a button or link on any post to toggle whether or not they “like” that post.
@@ -154,6 +160,7 @@ Using Python, JavaScript, HTML, and CSS, complete the implementation of a social
     - [ ] no like button if not logged in
 
 ## My Possible Features
+- [ ] **Move js fetches to url links --> allows for use of csrf tokens!**
 - [ ] Use React?
 - [ ] Use Github Issues
 - [ ] Use Github Actions, other testing
@@ -178,7 +185,7 @@ Using Python, JavaScript, HTML, and CSS, complete the implementation of a social
 - [x] Django’s [`Paginator`](https://docs.djangoproject.com/en/3.2/topics/pagination/) class may be helpful for implementing pagination on the back-end (in your Python code).
 - [x] Bootstrap’s [`Pagination`](https://getbootstrap.com/docs/4.0/components/pagination/) features may be helpful for displaying pages on the front-end (in your HTML).
 
-# Boostrap
+# Bootstrap
 - https://getbootstrap.com/docs/4.0/utilities/spacing/
 - https://getbootstrap.com/docs/5.0/components/card/
 - https://getbootstrap.com/docs/5.0/utilities/text/

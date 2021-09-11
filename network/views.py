@@ -11,6 +11,7 @@ from django.views.decorators.csrf import csrf_exempt, csrf_protect
 from django.core.paginator import Paginator
 from django.contrib.auth.decorators import login_required
 from .forms import NewPostForm
+import json
 
 
 def index(request):
@@ -180,6 +181,30 @@ def profile(request, profilename):
         }
 
     return render(request, "network/profile.html", context)
+
+
+@csrf_exempt
+def edit_post(request, postID):
+    if request.method != "PUT":
+        return JsonResponse({
+            "error": "PUT request required."
+        }, status=400)
+    
+    user_id = request.user.id
+    post = Post.objects.get(id=postID)
+
+    # prevent others from updating the post / ##### perhaps use status 403?
+    if user_id != post.poster.id:
+        return JsonResponse({
+            "error": "You are not logged in as the creator of the post"
+        }, status=401)
+
+    # update database
+    else:
+        data = json.loads(request.body)
+        post.content = data["content"]
+        post.save()
+        return HttpResponse(status=204)
 
 
 @login_required

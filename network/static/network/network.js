@@ -8,13 +8,86 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // functionality for follow button
-    const followButton = document.querySelector('.follow-button');
-    followButton.addEventListener('click', () => {
-        followButtonClick(followButton);
+    // functionality for follow button; try-catch is used for pages without follow button
+    try {
+        const followButton = document.querySelector('.follow-button');
+        followButton.addEventListener('click', () => {
+            followButtonClick(followButton);
+        });
+    } catch (error) {
+        console.error(error); ////// does this error have to be logged in the console? maybe it could just be hidden with no problem
+    };
+
+    // functionality for edit button
+    const editButtons = document.querySelectorAll('.edit-button');
+    editButtons.forEach(editButton => {
+        editButton.addEventListener('click', () => {
+            editButtonClick(editButton);
+        });
     });
 
 });
+
+
+function editButtonClick(editButton) {
+    // get post id, post content paragraph
+    const postID = parseInt(editButton.id.slice(12,));
+    const postContentPar = document.querySelector(`#post-content-${postID}`);
+    const originalHTMLContent = postContentPar.innerHTML;
+    const originalTextContent = postContentPar.textContent;
+    
+    //// hide editInfoPar, redisplay when cancel is selected
+    document.getElementById(`edit-info-${postID}`).style.display = 'none';
+    
+    // change display to textarea
+    postContentPar.innerHTML = 
+        `
+        <form id="edit-form-${postID}">
+            <div class="fieldWrapper form-group">
+                <textarea maxlength="280" rows="4" style="width: 48rem" class="form-control m-3 mx-auto" name="edit-content-${postID}">${originalTextContent}</textarea>
+            </div>
+            <div class="form-group m-3 mx-auto" style="width: 10rem;">
+                <input class="btn btn-primary" type="submit" id="save-edit-${postID}" value="Save">
+                <button class="btn btn-secondary" id="cancel-edit-${postID}">Cancel</button>
+            </div>
+        </form>
+        `;
+    
+    // Cancel
+    cancelEditButton = document.querySelector(`#cancel-edit-${postID}`);
+    cancelEditButton.addEventListener('click', () => {
+        postContentPar.innerHTML = originalHTMLContent;
+        document.getElementById(`edit-info-${postID}`).style.display = 'block';
+    });
+    
+    // Save
+    editForm = document.querySelector(`#edit-form-${postID}`);
+    editForm.addEventListener('submit', (event) => {
+        // prevent default, get formData
+        event.preventDefault();
+        const formData = new FormData(event.target);
+        editContent = formData.get(`edit-content-${postID}`);
+        
+        // replace content for display
+        postContentPar.innerHTML = 
+            `
+            <p>${editContent}</p>
+            `;
+        
+        // send to database with fetch
+        fetch(`/edit-post/${postID}`, {
+            method: 'PUT',
+            body: JSON.stringify({
+                content: editContent
+            })
+        })
+
+        document.getElementById(`edit-info-${postID}`).style.display = 'block';
+        
+        ///// add new "last edited on..."
+
+    });
+}
 
 
 function followButtonClick(followButton) {
