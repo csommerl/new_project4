@@ -35,12 +35,12 @@ function editButtonClick(editButton) {
     const postContentPar = document.querySelector(`#post-content-${postID}`);
     const originalHTMLContent = postContentPar.innerHTML;
     const originalTextContent = postContentPar.textContent;
-    
+
     //// hide editInfoPar, redisplay when cancel is selected
     document.getElementById(`edit-info-${postID}`).style.display = 'none';
-    
+
     // change display to textarea
-    postContentPar.innerHTML = 
+    postContentPar.innerHTML =
         `
         <form id="edit-form-${postID}">
             <div class="fieldWrapper form-group">
@@ -52,14 +52,14 @@ function editButtonClick(editButton) {
             </div>
         </form>
         `;
-    
+
     // Cancel
     cancelEditButton = document.querySelector(`#cancel-edit-${postID}`);
     cancelEditButton.addEventListener('click', () => {
         postContentPar.innerHTML = originalHTMLContent;
         document.getElementById(`edit-info-${postID}`).style.display = 'block';
     });
-    
+
     // Save
     editForm = document.querySelector(`#edit-form-${postID}`);
     editForm.addEventListener('submit', (event) => {
@@ -67,13 +67,13 @@ function editButtonClick(editButton) {
         event.preventDefault();
         const formData = new FormData(event.target);
         editContent = formData.get(`edit-content-${postID}`);
-        
+
         // replace content for display
-        postContentPar.innerHTML = 
+        postContentPar.innerHTML =
             `
             <p>${editContent}</p>
             `;
-        
+
         // send to database with fetch
         fetch(`/edit-post/${postID}`, {
             method: 'PUT',
@@ -83,7 +83,7 @@ function editButtonClick(editButton) {
         })
 
         document.getElementById(`edit-info-${postID}`).style.display = 'block';
-        
+
         ///// add new "last edited on..."
 
     });
@@ -97,7 +97,7 @@ function followButtonClick(followButton) {
 
     // what to do based on current status
     if (followButton.textContent === 'Follow') {
-        
+
         // update button text
         followButton.textContent = 'Unfollow';
         followerCount.textContent = parseInt(followerCount.textContent) + 1;
@@ -132,30 +132,30 @@ function likeButtonClick(likeButton) {
 
     // Gets like badge
     const likeBadge = document.querySelector(`#like-badge-${postID}`);
-    
+
     // what to do based on current status
     if (likeButton.textContent === 'Like') {
-        
+
         // update like button text and badge display number
         likeButton.textContent = 'Unlike';
         likeBadge.textContent = parseInt(likeBadge.textContent) + 1;
-        
+
         // update database
         fetch(`/like/${postID}`, {
             method: 'POST'
         });
 
         //// display error message?
-        
+
     } else {
-        
+
         likeButton.textContent = 'Like';
         likeBadge.textContent = parseInt(likeBadge.textContent) - 1;
 
         fetch(`/unlike/${postID}`, {
             method: 'POST'
         });
-        
+
         //// display error message?
 
     };

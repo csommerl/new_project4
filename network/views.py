@@ -23,12 +23,13 @@ def index(request):
     all_posts = list(Post.objects.all().values())
     # get post data
     all_posts = get_post_data(all_posts, user_id)
-    
+
     # pagination
-    paginator = Paginator(all_posts, 10) ##### in documentation example, Paginator takes a simple `objects.all()`
+    # in documentation example, Paginator takes a simple `objects.all()`
+    paginator = Paginator(all_posts, 10)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
-    
+
     context = {
         "page_obj": page_obj,
         "form": form
@@ -38,7 +39,7 @@ def index(request):
 
 
 def get_post_data(posts, user_id):
-    posts.sort(key=lambda post:post['created'], reverse=True)
+    posts.sort(key=lambda post: post['created'], reverse=True)
 
     # get poster's name and likes for each post and add to post data
     for post in posts:
@@ -46,11 +47,11 @@ def get_post_data(posts, user_id):
         poster_id = post['poster_id']
         poster = User.objects.get(pk=poster_id).username
         post['poster'] = poster
-        
+
         # get number of likes info
         post_id = post['id']
         likes = Like.objects.filter(liked_post=post_id, like_status=True)
-        likes_count = likes.count() #### no need convert to list to get count?
+        likes_count = likes.count()  # no need convert to list to get count?
         post['likes_count'] = likes_count
 
         # get whether user likes the post
@@ -83,7 +84,8 @@ def unfollow(request, profilename):
     followed = User.objects.get(username=profilename)
     follower = User.objects.get(pk=request.user.pk)
     if request.method == "POST":
-        follow = Follow.objects.get(followed=followed, follower=follower, follow_status=True)
+        follow = Follow.objects.get(
+            followed=followed, follower=follower, follow_status=True)
         follow.follow_status = False
         follow.save()
         return HttpResponse(status=204)
@@ -113,7 +115,8 @@ def unlike(request, postID):
     liker = request.user.pk
     if request.method == "POST":
         # need like_status=True to get only the most recent one
-        like = Like.objects.get(liked_post=unliked_post, liker=liker, like_status=True)
+        like = Like.objects.get(liked_post=unliked_post,
+                                liker=liker, like_status=True)
         like.like_status = False
         like.save()
         return HttpResponse(status=204)
@@ -129,15 +132,15 @@ def new_post_submit(request):
         if form.is_valid():
             cd = form.cleaned_data
             post = Post(
-                poster = request.user,
-                content = cd["content"]
+                poster=request.user,
+                content=cd["content"]
             )
             post.save()
         return HttpResponseRedirect(reverse("index"))
 
 
 def profile(request, profilename):
-    
+
     # get user id in order to get like info
     user_id = request.user.id
 
@@ -154,16 +157,19 @@ def profile(request, profilename):
         page_obj = paginator.get_page(page_number)
 
         # profile info
-        followers = Follow.objects.filter(followed=profile_id, follow_status=True).count()
-        follows = Follow.objects.filter(follower=profile_id, follow_status=True).count()
-        
+        followers = Follow.objects.filter(
+            followed=profile_id, follow_status=True).count()
+        follows = Follow.objects.filter(
+            follower=profile_id, follow_status=True).count()
+
         # set follow button; maybe do it with if statement?
         try:
-            Follow.objects.get(followed=profile_id, follower=user_id, follow_status=True)
+            Follow.objects.get(followed=profile_id,
+                               follower=user_id, follow_status=True)
             follow_button = "Unfollow"
         except:
             follow_button = "Follow"
-        
+
         context = {
             "profilename": profilename,
             "page_obj": page_obj,
@@ -189,7 +195,7 @@ def edit_post(request, postID):
         return JsonResponse({
             "error": "PUT request required."
         }, status=400)
-    
+
     user_id = request.user.id
     post = Post.objects.get(id=postID)
 
@@ -210,13 +216,14 @@ def edit_post(request, postID):
 @login_required
 def following(request):
     user_id = request.user.id
-    
+
     # generates list of all active follows
-    follows = list(Follow.objects.filter(follower=user_id, follow_status=True).values())
+    follows = list(Follow.objects.filter(
+        follower=user_id, follow_status=True).values())
 
     # if the user has active follows
     if follows != []:
-        
+
         # generate list of which users are followed
         followed_users = []
         for follow in follows:
@@ -244,7 +251,7 @@ def following(request):
         context = {
             "message": message
         }
-    
+
     return render(request, "network/following.html", context)
 
 
