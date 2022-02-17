@@ -1,4 +1,5 @@
 # Network
+My attempt at Harvard CS50w's Network Project:
 Design a Twitter-like social network website for making posts and following users.
 https://cs50.harvard.edu/web/2020/projects/4/network/
 
